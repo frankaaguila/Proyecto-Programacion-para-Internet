@@ -1,0 +1,72 @@
+body {
+	background: #000;
+	padding-top: 70px;
+	color: #fff;
+
+}
+
+p {
+	font-size:  large ;	
+	color: #bcbfc4;
+}
+
+.main{
+	/**background: url('../images/logo.png') no-repeat 0px 0px;**//
+	background-position: right top;
+}
+
+nav.navbar{
+	background: #000;
+	border: none;
+	color: #fff;
+	opacity: 0.9;
+}
+
+nav.navbar ul.nav  li {
+
+	border: 1px solid #000;
+
+    
+}
+nav.navbar ul.nav  li a{
+	padding:12px 22px;
+
+	  display: block;
+	  color: solid #fff;
+}
+nav.navbarul li.nav  a.active {
+	color: #9b8547;
+}
+nav.navbar ul.nav  li a:hover {
+	background: #dbdcdd;
+}
+
+.btn:focus, .btn:active, button:focus, button:active {
+  outline: none !important;
+  box-shadow: none !important;
+
+}
+
+.thumbnail .img-thumbnail{
+	border: none;
+	background: #000;
+}
+.thumbnail{
+	border: none;
+	background: #000;
+}
+
+#image-gallery .modal-footer{
+  display: block;
+}
+
+.thumb{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  
+}
+
+.modal .modal-dialog .modal-content{
+	
+	border: none;
+}
