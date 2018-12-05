@@ -1,3 +1,36 @@
+<?php
+	require('conection.php');
+	
+	session_start();
+	
+	if(isset($_SESSION["id_usuario"])){
+		header("Location: index.html");
+	}
+	
+	if(!empty($_POST))
+	{
+		$usuario = mysqli_real_escape_string($mysqli,$_POST['usuario']);
+		$password = mysqli_real_escape_string($mysqli,$_POST['password']);
+		$error = '';
+		
+		$sha1_pass = sha1($password);
+		echo $sha1_pass;
+		
+		$sql = "SELECT password FROM usuarios WHERE correo = '$usuario' AND password = '$sha1_pass'";
+		$result=$mysqli->query($sql);
+		$rows = $result->num_rows;
+		
+		if($rows > 0) {
+			$row = $result->fetch_assoc();
+			$_SESSION['id_usuario'] = $row['id'];
+			
+			header("location: index.html");
+			} else {
+			$error = "Correo o contrasena incorrectos";
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html lang ="es">
 <head>
@@ -48,9 +81,9 @@
 					</ul>
 				</div>
 			</div>
-			<div class = "login col-md-2 col-md-offset-3">
+			<div class = "login col-md-2 col-md-offset-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="login.html">Log in<i class="home"></i></a></li>					
+					<li class="active"><a href="login.php">Log in<i class="home"></i></a></li>		
 				</ul>
 			</div>
 		</div>
@@ -66,20 +99,37 @@
 		</div>
 		<!--Formulario-->
 		<div class="col-md-2 col-md-offset-5">
-			<form action="">
+
+			<form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" > 
+				<br />
+
+				<div><label>Correo:</label><br />
+
+					<div style = "color:#000;"><input id="usuario" name="usuario" type="text" ></div></div>
+				<br />
+				<div>
+					<div style = "color:#000;"><label>Contraseña:</label><input id="password" name="password" type="password"></div>
+				</div>
+				<br />
+				<div><input name="login" type="submit" value="Ingresar"></div> 
+			</form> 
+			<div style = "font-size:16px; color:#cc0000;"><?php echo isset($error) ? utf8_decode($error) : '' ; ?></div>
+			<!---
+			<form action="<?php #$_SERVER['PHP_SELF']; ?>" method="POST" > 
 				<div class="form-group">
-					<input class="form-control" type="text" id="nombre" placeholder="Usuario">
+					<input class="form-control" type="text" id="correo" placeholder="Correo">
 				</div>
 				<div class="form-group">
 					<input class="form-control" type="text" id="pass" placeholder="Contraseña">
 				</div>
-				<button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+				<button class="btn btn-primary" name="login" type="submit" value="login">Iniciar Sesión</button>
 			</form>
+		-->
 		</div>
 		<br>
 		<br>
 		<div class="col-md-2 col-md-offset-5">
-			<a href="register.html">Registrarse<i class="home">
+			<a href="register.php">Registrarse<i class="home">
 		</div>
 
 	</section>
